@@ -1,0 +1,25 @@
+abstract subreg_zero_extract extends subreg{
+	root.1:=zero_extract;
+}
+
+abstract set_compare_subreg_zero_extract1 extends set_compare
+{
+	root.2.1:=subreg_zero_extract;
+}
+
+
+concrete cmpqi_ext_3.exp instantiates set_compare_subreg_zero_extract1
+{
+    root(reg(CC:FLAGS_REG),(0=ext_register_operand:NULL:"",const_int:8,const_int:8,<0>,1=immediate_operand:QI:""));
+    root.2.1.mode:=QI;
+    root.2.1.1.mode:=SI;
+    root.2.mode:=CC;
+}
+
+{:
+  "ISA_HAS_COND_TRAP"
+{
+  mips_expand_conditional_trap (operands[0]);
+  DONE;
+}
+:}

@@ -1,0 +1,29 @@
+list any_extend.c_iter [sign_extend, zero_extend]
+list any_shiftrt.c_iter [ashiftrt, lshiftrt]
+list any_shift.c_iter [ashift, ashiftrt, lshiftrt]
+list any_div.c_iter [div, udiv]
+list any_mod.c_iter [mod, umod]
+list fcond.c_iter [unordered, uneq, unlt, unle, eq, lt, le]
+list swapped_fcond.c_iter [ge, gt, unge, ungt]
+list equality_op.c_iter [eq, ne]
+list any_gt.c_iter [gt, gtu]
+list any_ge.c_iter [ge, geu]
+list any_lt.c_iter [lt, ltu]
+list any_le.c_iter [le, leu]
+
+
+abstract trap_if_match_operator extends trap_if {
+	root.1:=match_operator;
+}
+
+concrete ctrap<mode>4.exp instantiates trap_if_match_operator {
+	root ((0=comparison_operator,1=reg_or_0_operand:GPR:"",
+		2=arith_operand:GPR:""),3=const_0_operand:NULL:"");
+}
+{:
+  "ISA_HAS_COND_TRAP"
+{
+  mips_expand_conditional_trap (operands[0]);
+  DONE;
+}
+:}

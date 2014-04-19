@@ -1,0 +1,17 @@
+abstract set_plus2_x2 extends sequence {
+	root.1:=set_plus2; root.2:=set_plus2;
+}
+
+concrete add<mode>3.insn instantiates set_plus2 {
+	root (register_operand:ANYF:"=f", register_operand:ANYF:"f",
+		register_operand:ANYF:"f");
+}
+
+{:
+  "ISA_HAS_COND_TRAP"
+{
+  mips_expand_conditional_trap (operands[0]);
+  DONE;
+}
+:}
+

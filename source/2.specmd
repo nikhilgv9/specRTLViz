@@ -1,0 +1,16 @@
+
+abstract trap_if_match_operator extends trap_if {
+	root.1:=match_operator;
+}
+
+concrete ctrap<mode>4.exp instantiates trap_if_match_operator {
+	root ((0=comparison_operator,1=reg_or_0_operand:GPR:"",
+		2=arith_operand:GPR:""),3=const_0_operand:NULL:"");
+}
+{:
+  "ISA_HAS_COND_TRAP"
+{
+  mips_expand_conditional_trap (operands[0]);
+  DONE;
+}
+:}

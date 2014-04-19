@@ -1,0 +1,16 @@
+concrete trap.insn instantiates trap_if 
+{
+	root (const_int:1, const_int:0);
+}
+{:
+  ""
+{
+  if (ISA_HAS_COND_TRAP)
+    return "teq\t$0,$0";
+  else if (TARGET_MIPS16)
+    return "break 0";
+  else
+    return "break";
+}
+  [(set_attr "type" "trap")]
+:}
