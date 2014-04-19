@@ -4,6 +4,11 @@
 DockableArea::DockableArea(QWidget *parent) :
     QDockWidget(parent)
 {
+    root=NULL;
+    rootin=NULL;
+    rootout=NULL;
+    circleWidth=50;
+    currLeaf = 0;
 }
 
 void DockableArea::setRoot(Node* r){

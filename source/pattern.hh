@@ -52,8 +52,8 @@ class Operand {
             bracketOpen, bracketClose};
     private:
         Type type;
-        int operandNumber = 1000;
-        unsigned long int number = -1000;
+        int operandNumber;
+        unsigned long int number;
         std::string predicate;
         std::string mode;
         std::string constraint;
@@ -69,7 +69,7 @@ class Operand {
         Operand (Type t, int n, std::string p_m);
         Operand (Type t, std::string p_m, std::string c);
         Operand (Type t, std::string p_m);
-        Operand () {}
+        Operand () {operandNumber = 1000; number = -1000;}
         ~Operand ();
         std::string getOperand (); 
         Type getType () { return type; }
@@ -201,7 +201,7 @@ public:
     virtual Pattern* getParentPattern () { return 0; }
 
     virtual void setSubType (SubType st) { subType = st; }
-    virtual void setSubTypeOut (SubType st) {}
+    virtual void setSubTypeOut (SubType) {}
     virtual SubType getSubType () { return subType; }
  
     // TODO

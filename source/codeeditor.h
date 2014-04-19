@@ -28,7 +28,7 @@ private slots:
     void matchParentheses(QTextCursor &cursor);
 private:
    QWidget *lineNumberArea;
-   QPair<int,int> m_countCache=QPair<int,int>(-1,-1);
+   QPair<int,int> m_countCache;
    bool matchLeftParenthesis(QTextBlock currentBlock, int index, int numRightParentheses);
    bool matchRightParenthesis(QTextBlock currentBlock, int index, int numLeftParentheses);
    void createParenthesisSelection(int pos);

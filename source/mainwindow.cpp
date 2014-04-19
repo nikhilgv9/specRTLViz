@@ -6,6 +6,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow){
+    root2=NULL;
+    openedFile="";
     ui->setupUi(this);
     this->red=QColor(255,0,0);
     this->black=QColor(0,0,0);

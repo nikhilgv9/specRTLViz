@@ -13,10 +13,10 @@ QSet<QString> TextEllipse::collapsedList=QSet<QString>();
 TextEllipse::TextEllipse(int x, int y, std::string text, std::string fullText, bool leftX, bool collapsed, QGraphicsItem *parent, QGraphicsScene *scene):
 QGraphicsItem(parent,scene)
 {
-
     int size = text.size();
     int xpad = 10+size/5;
     int ypad = 5;
+    this->nextConsume = true;
     this->x=x;
     this->y=y;
     this->isCollapsed = collapsed;
@@ -39,7 +39,7 @@ QRectF TextEllipse::boundingRect() const
     return rect;
 }
 
-void TextEllipse::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,QWidget *widget)
+void TextEllipse::paint(QPainter *painter, const QStyleOptionGraphicsItem*,QWidget*)
 {
     painter->setPen(blue);
     QBrush brush = painter->brush();
@@ -72,7 +72,7 @@ void TextEllipse::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     brush.setColor(white);
 }
 
-void TextEllipse::mousePressEvent(QGraphicsSceneMouseEvent *event){
+void TextEllipse::mousePressEvent(QGraphicsSceneMouseEvent*){
     if(this->isCollapsed){
         collapsedList.remove(this->id);
         qDebug()<<"Expanding:"<<this->id;
@@ -84,7 +84,7 @@ void TextEllipse::mousePressEvent(QGraphicsSceneMouseEvent *event){
     parentView->update();
 }
 
-void TextEllipse::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
+void TextEllipse::hoverEnterEvent(QGraphicsSceneHoverEvent*){
     qDebug()<<"Entered:"<<this->id;
     setCursor(Qt::PointingHandCursor);
 }

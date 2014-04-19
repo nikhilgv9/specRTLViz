@@ -33,10 +33,10 @@ public:
     int y;
     int width;
     int totalWidth;
-    bool nextConsume = true;
+    bool nextConsume;
     TextEllipse(int x, int y, std::string, std::string , bool leftx, bool collapsed, QGraphicsItem* p=0, QGraphicsScene* q=0);
     QRectF boundingRect() const;
-    void paint(QPainter*, const QStyleOptionGraphicsItem*,QWidget*);
+    void paint(QPainter*, const QStyleOptionGraphicsItem *, QWidget*);
     void mousePressEvent(QGraphicsSceneMouseEvent *);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *);
 };

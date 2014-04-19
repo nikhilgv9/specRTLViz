@@ -61,8 +61,8 @@ public:
      * messages: This variable contains the console outputs during parser executions
      */
     static QString messages;
-    bool stopHere=false;
-    int lineToStop=1000;
+    bool stopHere;
+    unsigned int lineToStop;
 
     enum LogLevel {info, deb, err, fatal, grammar};
     

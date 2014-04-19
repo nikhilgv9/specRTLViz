@@ -67,7 +67,7 @@ std::string *Element::getValue() const {
 
 ElemList::~ElemList() {
 }
-ElemList::ElemList(const ElemList & el) {
+ElemList::ElemList(const ElemList & el): Element() {
     eList = el.getList();
 }
 

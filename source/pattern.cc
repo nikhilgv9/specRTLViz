@@ -70,6 +70,7 @@ Operand::Operand (Type t, int n, std::string p_m, std::string c) {
 }
 
 Operand::Operand (Type t, std::string p_m) {
+    number = -1000;
     type = t;
     if (type == pmc)
         operandNumber = -1;

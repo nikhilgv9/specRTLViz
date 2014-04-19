@@ -27,7 +27,8 @@ srtl_driver::srtl_driver() {
 //    dotFileUses << "rankdir=\"LR\";\n";
     result = 0;
 	initialize();
-
+    stopHere=false;
+    lineToStop = 1000; //just a dummy value, can be removed. not tested afer removing
     generateDotFile = true;
 
 
@@ -129,6 +130,9 @@ void srtl_driver::displayConstructTally () {
             break;
         case Pattern::define_automaton:
             std::cout << "Automaton: \t\t\t" << pat->second << "\n";
+            break;
+        case Pattern::define_bypass:
+            std::cout << "Define by pass: \t\t\t" << "\n";
             break;
         }
     }

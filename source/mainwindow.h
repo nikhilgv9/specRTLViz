@@ -37,10 +37,10 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-    Node2* root2=NULL;
+    Node2* root2;
     QColor red;
     QColor black;
-    std::string openedFile="";
+    std::string openedFile;
     FindFrame* findFrame;
 
 

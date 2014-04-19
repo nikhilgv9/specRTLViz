@@ -57,8 +57,8 @@ private:
      * the tree structure. It is constructed based on 
      * the abstract patterns.
      */
-    Node* tree=NULL;
-    Node* treeOut=NULL;
+    Node* tree;
+    Node* treeOut;
     
     bool error;
 
@@ -66,12 +66,16 @@ private:
     std::string cmdBodyOut;
 public:
     ConcretePattern (Type pt) {
+        tree = NULL;
+        treeOut = NULL;
         error = false;
         type = pt;
         name = "";
     }
 
     ConcretePattern (std::string V, Type t) {
+        tree = NULL;
+        treeOut = NULL;
         name = V;
         type = t;
         error = false;

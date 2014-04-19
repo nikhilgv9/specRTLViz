@@ -5,6 +5,7 @@
 CodeEditor::CodeEditor(QWidget *parent)
     : QPlainTextEdit(parent)
  {
+     m_countCache=QPair<int,int>(-1,-1);
      lineNumberArea = new LineNumberArea((CodeEditor*)this);
 
      connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
@@ -49,7 +50,7 @@ void CodeEditor::findText(QString text, int dir){
     }
 }
 
-void CodeEditor::updateLineNumberAreaWidth(int a)
+void CodeEditor::updateLineNumberAreaWidth(int)
 {
     setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
 }
@@ -124,9 +125,7 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 // walk through and check that we don't exceed 80 chars per line
 void CodeEditor::matchParentheses(QTextCursor& cursor)
 {
-    bool match = false;
     QTextBlock block = cursor.block();
-    QTextBlockUserData* d=block.userData();
     TextBlockData *data = static_cast<TextBlockData *>(block.userData());
 
     if (data) {

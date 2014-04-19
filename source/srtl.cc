@@ -6,7 +6,7 @@
 
 srtl_driver *driver;
 
-void segfault_sigaction(int signal, siginfo_t *si, void *arg)
+void segfault_sigaction(int, siginfo_t *, void *)
 {
     driver->currentPattern = NULL;
     driver->messages = "Sementation fault in parser";

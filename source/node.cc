@@ -172,7 +172,7 @@ int Node::traverseTree (std::vector<Operand>* operands, Node* tn) {
             }
         }
 
-        for (unsigned int i = 0; i < tn->children.size (); i++){
+        for (int i = 0; (unsigned)i < tn->children.size (); i++){
             if (tn->name == "cond" && i == 1) {
                 srtl_driver::outPattern += "]";
             }

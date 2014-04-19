@@ -11,15 +11,15 @@ class MainWindow;
 class DockableArea : public QDockWidget
 {
     Q_OBJECT
-    Node* root=NULL;
-    Node* rootin=NULL;
-    Node* rootout=NULL;
-    int circleWidth=50;
+    Node* root;
+    Node* rootin;
+    Node* rootout;
+    int circleWidth;
 
 public:
     MainWindow* mainWin;
     QGraphicsView* graphicsView;
-    int currLeaf = 0;
+    unsigned int currLeaf;
     int levelsX[10];
     std::vector<Operand> operandsIn;
     std::vector<ModeStmt> modeStmtsIn;
