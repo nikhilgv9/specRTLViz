@@ -173,6 +173,7 @@ Pattern
         } else {
             driver.debug (srtl_driver::err, "Abstract Pattern in Error: " + driver.currentPattern->getPatName ());
         }
+	driver.currentPattern->createPattern();
 	if(driver.stopHere){
 	    YYACCEPT;
 	}
@@ -223,9 +224,6 @@ Pattern
 /* Abstract Pattern Grammar */
 Abstract_Pattern    
     :   ABSTRACT Abstract_Pattern_Name Abstract_Rtl_Spec {
-	    if(driver.stopHere){
-		YYACCEPT;
-	    }
     }
     ;
 

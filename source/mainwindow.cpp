@@ -62,6 +62,41 @@ void MainWindow::showFind()
     this->findFrame->ed->setFocus();
 }
 
+void MainWindow::newClick()
+{
+    this->ui->textEdit->clear();
+    this->openedFile="";
+}
+
+void MainWindow::saveClick()
+{
+    qDebug() << "clicked on save";
+    if(this->openedFile!=""){
+        QString file(this->openedFile.c_str());
+        QFile fp(file);
+        QString text = this->ui->textEdit->toPlainText();
+        fp.open(QIODevice::WriteOnly | QIODevice::Text);
+        fp.write(text.toStdString().c_str());
+        fp.close();
+
+        QMessageBox::information(NULL, "Successful", "File Successfully Saved!");
+    }
+    else{
+        QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),"/home/nikhil/gcc/assign4/SRTL-2.0/sample_md_files",tr("specRTL Files (*.specmd)"));
+        if(fileName!=""){
+            this->openedFile = fileName.toStdString();
+
+            QString file(this->openedFile.c_str());
+            QFile fp(file);
+            QString text = this->ui->textEdit->toPlainText();
+            fp.open(QIODevice::WriteOnly | QIODevice::Text);
+            fp.write(text.toStdString().c_str());
+            fp.close();
+
+            QMessageBox::information(NULL, "Successful", "File Successfully Saved!");
+        }
+    }
+}
 
 
 void MainWindow::openClick()
@@ -140,7 +175,7 @@ void MainWindow::on_generateButton_clicked()
         //Getting current cursor position
         QTextCursor cursor = this->ui->textEdit->textCursor();
         QTextDocument* d = this->ui->textEdit->document();
-        QTextCursor p = d->find(QRegExp("concrete"),cursor,d->FindBackward);
+        QTextCursor p = d->find(QRegExp("concrete|abstract"),cursor,d->FindBackward);
         if(p.isNull()){
             this->ui->messageText->append("No concrete pattern found...........");
             return;
@@ -172,21 +207,23 @@ void MainWindow::on_generateButton_clicked()
                 this->ui->messageText->append("Done!!!");
             }
             else{
-//                AbstPattern* q = dynamic_cast<AbstPattern*>(driver->currentPattern);
-//                if(q!=NULL){
-//                    this->setRootIn();
-//                    this->setRootOut(NULL);
-//                    this->operandsIn.clear();
-//                    this->operandsOut.clear();
-//                }
-//                else{
+                AbstPattern* q = dynamic_cast<AbstPattern*>(driver->currentPattern);
+                if(q!=NULL){
+                    qDebug() << q->getPatName().c_str();
+                    this->ui->dock->setRootIn(q->getTree());
+                    this->ui->dock->setRootOut(NULL);
+                    this->ui->dock->operandsIn.clear();
+                    this->ui->dock->operandsOut.clear();
+                    this->ui->messageText->append("Done!!!");
+                }
+                else{
                     this->ui->dock->setRootIn(NULL);
                     this->ui->dock->setRootOut(NULL);
                     this->ui->dock->operandsIn.clear();
                     this->ui->dock->operandsOut.clear();
-                    this->ui->messageText->append("No concrete pattern found...........");
+                    this->ui->messageText->append("No pattern found...........");
                 }
-//            }
+            }
         }
         else{
             this->ui->messageText->append(driver->messages);

@@ -52,6 +52,7 @@ public:
     bool isLeafNode () { return leafNode; }
     void addChild (Node* node);
     void replaceNode (Node *node, std::vector<int>* position);
+    void replaceAbstractNode (Node *node, std::vector<int>* position);
     void replaceMode (std::string m, std::vector<int>* position);
     void replacePmc (Operand op, std::vector<int>* position);
     void replacePredicate (Operand op, std::vector<int>* position);

@@ -19,10 +19,13 @@
 #ifndef __ABSTRACT_H_INCLUDED__
 #define __ABSTRACT_H_INCLUDED__
 
+#include <vector>
+#include "node.hh"
 #include "pattern.hh"
 
 class AbstPattern : public Pattern {
 private:
+    Node* tree;
     std::vector<ModeStmt> sList;
     std::string pname;
     std::string extname;
@@ -33,7 +36,11 @@ public:
         pname = name;
         error = false;
     }
+    Node* getTree(){
+        return tree;
+    }
     std::string getPatName();
+    void createPattern ();
     void setPatName(std::string V);
     void addStmt(ModeStmt s);
     void addStmts (std::vector<ModeStmt> msv) {

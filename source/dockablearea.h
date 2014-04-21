@@ -35,7 +35,7 @@ public:
     explicit DockableArea(QWidget *parent = 0);
     void paintEvent(QPaintEvent *event);
     std::string getType(enum Operand::Type t);
-    TextEllipse *dfs(Node*, QGraphicsScene*, int, int, int depth=0, QString id="root", bool consume=true);
+    TextEllipse *dfs(Node*, QGraphicsScene*, int, int, int depth=0, QString id="root", bool consume=true, bool render=true);
 signals:
     
 public slots:

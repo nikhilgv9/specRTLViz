@@ -73,6 +73,36 @@ void Node::replaceNode (Node* node, std::vector<int>* position){
     n->replaceSingleNode (node, position->at (position->size () -1));
 }
 
+void Node::replaceAbstractNode (Node* node, std::vector<int>* position){
+    Node* placeHolder;
+    if(position->size () == 1) {
+        for(unsigned int j = 1;j<position->at(position->size ()-1);j++){
+            Node* child = children.at(j-1);
+            if(child->name == "___"){
+                placeHolder = new Node("leaf",true);
+                replaceSingleNode(placeHolder,j);
+            }
+        }
+        replaceSingleNode (node, position->at (0));
+        return;
+    }
+
+    Node* n = children[position->at (0) - 1];
+    if(n==NULL || n->children.size()==0)
+        return;
+    for (unsigned int i = 1; i < position->size () - 1; i++ ) {
+        n = n->children[position->at (i) - 1];
+    }
+    for(unsigned int j = 1;j<position->at(position->size ()-1);j++){
+        Node* child = n->children.at(j-1);
+        if(child->name == "___"){
+            placeHolder = new Node("leaf",true);
+            n->replaceSingleNode(placeHolder,j);
+        }
+    }
+    n->replaceSingleNode (node, position->at (position->size () -1));
+}
+
 void Node::replaceMode (std::string mode, std::vector<int>* position) {
     if(position->size () == 1) {
         if(children.empty())

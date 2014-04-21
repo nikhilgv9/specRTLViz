@@ -2440,7 +2440,7 @@ int yywrap() { return 1; }
 int count_newlines(string s) {
   int count = 0;
 
-  for (unsigned int i = 0; i < s.size(); i++)
+  for (int i = 0; i < s.size(); i++)
     if (s[i] == '\n') count++;
 
   return count;

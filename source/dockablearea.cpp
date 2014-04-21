@@ -56,7 +56,7 @@ void DockableArea::paintEvent(QPaintEvent *event){
 
 
 //This is new DFS
-TextEllipse* DockableArea::dfs(Node* node, QGraphicsScene* scene, int x, int y, int depth, QString id, bool consume){
+TextEllipse* DockableArea::dfs(Node* node, QGraphicsScene* scene, int x, int y, int depth, QString id, bool consume, bool render){
     int height = 30;
     Operand op;
     bool nextConsume = true;
@@ -146,9 +146,10 @@ TextEllipse* DockableArea::dfs(Node* node, QGraphicsScene* scene, int x, int y, 
     int currX=x;
     bool curConsume = consume;
     bool collaspsing = false;
+    bool childRender = render;
     TextEllipse* children[100];
     if(TextEllipse::collapsedList.contains(id)){
-        nRealChildren = 0;
+        childRender = false;
         collaspsing = true;
     }
 
@@ -159,7 +160,7 @@ TextEllipse* DockableArea::dfs(Node* node, QGraphicsScene* scene, int x, int y, 
             continue;
         }
         QString newid = id+"."+QString::number(i+1);
-        TextEllipse* c = dfs(child,scene,currX,y+100,depth+1,newid,curConsume);
+        TextEllipse* c = dfs(child,scene,currX,y+100,depth+1,newid,curConsume,childRender);
         children[i]=c;
         if(c!=NULL){
             if(i==0){
@@ -193,11 +194,13 @@ TextEllipse* DockableArea::dfs(Node* node, QGraphicsScene* scene, int x, int y, 
     }
     circle->parentView=this;
     circle->id=id;
-    scene->addItem(circle);
+    if(render){
+        scene->addItem(circle);
+    }
 
 
     // Drawing lines to children
-    for(int i=0; i<nRealChildren; i++){
+    for(int i=0; i<nRealChildren && childRender; i++){
         if(child->getName() == "___"){
             continue;
         }

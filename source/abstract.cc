@@ -12,6 +12,7 @@
  *                                                                            *
  *--------------------------------------------------------------------------- */
 #include "abstract.hh"
+#include "srtl-driver.hh"
 
 std::string AbstPattern::getPatName () 
 {
@@ -72,7 +73,68 @@ AbstPattern::~AbstPattern () {
 }
 
 AbstPattern::AbstPattern () {
-
  initialized=false;
 }
+
+
+void AbstPattern::createPattern (){
+    std::vector<ModeStmt>* ms = getStmts ();
+
+    if (type != regCons) {
+        for (unsigned int i = 0; i < ms->size (); i++) {
+            if(ms->at (i).getType () == ModeStmt::root) {
+                if (i == 0) {
+                    int children = srtl_driver::findRtlOperandSymTabEntry (
+                        ms->at (i).getPatternName ());
+                    if (children < 0) {
+                        srtl_driver::debugS (srtl_driver::err,
+                            "For Abst Pattern: " + getPatName ());
+                        srtl_driver::debugS (srtl_driver::err,
+                            "Invalid RTL Operand: " +
+                            ms->at (i).getPatternName ());
+                        return;
+                    }
+                    tree = new Node (ms->at (i).getPatternName (), false);
+                } else {
+                    Node* iNode = new Node (ms->at (i).
+                        getPatternName (), false);
+                    int children = srtl_driver::findRtlOperandSymTabEntry (
+                        ms->at (i).getPatternName ());
+                    if (children < 0) {
+                        srtl_driver::debugS (srtl_driver::err,
+                            "For Abst Pattern: " + getPatName ());
+                        srtl_driver::debugS (srtl_driver::err,
+                            "Invalid RTL Operand: " +
+                            ms->at (i).getPatternName ());
+                        delete iNode;
+                        delete tree;
+                        return;
+                    }
+                    tree->replaceAbstractNode (iNode, ms->at (i).getAccessTree ());
+                }
+            }
+        }
+
+        std::string replaceTo;
+        std::string replaceFrom;
+
+
+        for (unsigned int i = 0; i < ms->size (); i++) {
+            if (ms->at(i).getType() == ModeStmt::mode){
+                if (ms->at(i).getMode () == replaceFrom) {
+                    tree->replaceMode (replaceTo, ms->at(i).getAccessTree ());
+                } else {
+                    tree->replaceMode (ms->at(i).getMode (),
+                        ms->at(i).getAccessTree ());
+                }
+            }
+        }
+
+        vector<Operand>* newVector = new vector<Operand> ();
+        //tree->traverseTree (newVector);
+        delete newVector;
+
+    }
+}
+
 

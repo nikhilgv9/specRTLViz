@@ -52,7 +52,9 @@ public:
     Ui::MainWindow *getUi();
 
 public slots:
+    void newClick();
     void openClick();
+    void saveClick();
     void showFind();
     void floatingChanged(bool floating);
 

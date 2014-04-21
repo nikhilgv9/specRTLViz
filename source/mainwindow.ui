@@ -254,8 +254,8 @@ QDockWidget{ border: 0px; background-color: #050505; margin: 0px; padding: 0px ;
    <widget class="QMenu" name="menuFile">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>115</y>
+      <x>272</x>
+      <y>82</y>
       <width>138</width>
       <height>159</height>
      </rect>
@@ -417,8 +417,42 @@ QDockWidget{ border: 0px; background-color: #050505; margin: 0px; padding: 0px ;
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionSave</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>saveClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>644</x>
+     <y>390</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionNew</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>newClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>644</x>
+     <y>390</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openClick()</slot>
+  <slot>saveClick()</slot>
+  <slot>newClick()</slot>
  </slots>
 </ui>
